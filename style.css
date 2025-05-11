@@ -134,6 +134,10 @@ footer {
     margin-right: 5px;
 }
 
+#string-input {
+    width: 200px;
+}
+
 .label-spacer,
 .button-spacer {
     margin-left: 10px;
