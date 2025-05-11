@@ -2,6 +2,8 @@
 
 This repository is a learning project for Rust, with the goal of creating a web-based manual for other Rust beginners.
 
+![screenshot](documentation/preview.png)
+
 ## Live Demo
 
 You can try out the interactive manual I've put together [here.](https://conor-timmis.github.io/lets-learn-rust/)
