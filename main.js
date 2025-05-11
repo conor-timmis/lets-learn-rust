@@ -1,7 +1,7 @@
 // main.js: Interacts with the Rust/WASM module.
 
 // Import functions from our WASM package.
-import init, { greet, add_numbers_and_explain, reverse_string } from './rust_lib/pkg/rust_lib.js';
+import init, { greet, add_numbers_and_explain, reverse_string, calculate_stats } from './rust_lib/pkg/rust_lib.js';
 
 // --- Rust Code Snippets (for display) ---
 const greetCode = `
@@ -14,13 +14,41 @@ const addNumbersCode = `
 #[wasm_bindgen]
 pub fn add_numbers_and_explain(num1: i32, num2: i32) -> String {
     let sum = num1 + num2;
-    format!("Rust says: {} + {} = {}. Neat!", num1, num2, sum)
-}`.trim(); // Corrected to "Neat!"
+    format!("Rust says: {} + {} = {}. Perfect!", num1, num2, sum)
+}`.trim();
 
 const reverseStringCode = `
 #[wasm_bindgen]
 pub fn reverse_string(text: &str) -> String {
     text.chars().rev().collect::<String>()
+}`.trim();
+
+const calculateStatsCode = `
+#[wasm_bindgen]
+pub fn calculate_stats(numbers_str: &str) -> String {
+    if numbers_str.trim().is_empty() {
+        return String::from("Input is empty. Please provide some numbers.");
+    }
+    let mut numbers: Vec<i32> = Vec::new();
+    let parts = numbers_str.split(',');
+    for part in parts {
+        match part.trim().parse::<i32>() {
+            Ok(num) => numbers.push(num),
+            Err(_) => return format!("Error: Could not parse '{}' as a number. Please use comma-separated integers.", part.trim()),
+        }
+    }
+    if numbers.is_empty() {
+        return String::from("No valid numbers found to calculate statistics.");
+    }
+    let count = numbers.len();
+    let sum: i32 = numbers.iter().sum();
+    let average = sum as f64 / count as f64;
+    let min_val = *numbers.iter().min().unwrap(); 
+    let max_val = *numbers.iter().max().unwrap();
+    format!(
+        "Statistics Results:\nAvailable: {}\nCount: {}\nSum: {}\nAverage: {:.2}\nMinimum: {}\nMaximum: {}",
+        count, sum, average, min_val, max_val
+    )
 }`.trim();
 
 async function runWasm() {
@@ -46,12 +74,19 @@ async function runWasm() {
         const reverserResultContainer = document.getElementById('reverser-result-container');
         const reverserCodeDisplay = document.getElementById('reverser-code-display');
 
+        // --- Stats Calculator Elements ---
+        const statsInput = document.getElementById('stats-input');
+        const calculateStatsButton = document.getElementById('calculate-stats-button');
+        const statsResultContainer = document.getElementById('stats-result-container').querySelector('pre');
+        const statsCodeDisplay = document.getElementById('stats-code-display');
+        
         // --- Check if all elements exist ---
         if (!nameInput || !greetButton || !rustAppContainer || !greetCodeDisplay || 
             !num1Input || !num2Input || !addNumbersButton || !adderResultContainer || !adderCodeDisplay ||
-            !stringInput || !reverseButton || !reverserResultContainer || !reverserCodeDisplay) {
+            !stringInput || !reverseButton || !reverserResultContainer || !reverserCodeDisplay ||
+            !statsInput || !calculateStatsButton || !statsResultContainer || !statsCodeDisplay) {
             console.error("Required HTML elements not found. Check IDs.");
-            const mainErrorContainer = rustAppContainer || adderResultContainer || reverserResultContainer;
+            const mainErrorContainer = rustAppContainer || adderResultContainer || reverserResultContainer || (statsResultContainer && statsResultContainer.parentElement) ;
             if (mainErrorContainer) {
                 mainErrorContainer.textContent = "Error: Page elements missing. Check console.";
             }
@@ -62,11 +97,10 @@ async function runWasm() {
         greetCodeDisplay.textContent = greetCode;
         adderCodeDisplay.textContent = addNumbersCode;
         reverserCodeDisplay.textContent = reverseStringCode;
+        statsCodeDisplay.textContent = calculateStatsCode;
 
         // --- Greet Example Logic ---
-        function updateGreeting(name) {
-            rustAppContainer.textContent = greet(name);
-        }
+        function updateGreeting(name) { rustAppContainer.textContent = greet(name); }
         if (nameInput.value) { updateGreeting(nameInput.value); }
         greetButton.addEventListener('click', () => {
             const userName = nameInput.value.trim();
@@ -76,37 +110,34 @@ async function runWasm() {
 
         // --- Adder Example Logic ---
         function updateAdderResult(val1, val2) {
-            const num1 = parseInt(val1, 10);
-            const num2 = parseInt(val2, 10);
-            if (isNaN(num1) || isNaN(num2)) {
-                adderResultContainer.textContent = "Please enter valid numbers.";
-                return;
-            }
+            const num1 = parseInt(val1, 10); const num2 = parseInt(val2, 10);
+            if (isNaN(num1) || isNaN(num2)) { adderResultContainer.textContent = "Please enter valid numbers."; return; }
             adderResultContainer.textContent = add_numbers_and_explain(num1, num2);
         }
         if (num1Input.value && num2Input.value) { updateAdderResult(num1Input.value, num2Input.value); }
-        addNumbersButton.addEventListener('click', () => {
-            updateAdderResult(num1Input.value, num2Input.value);
-        });
+        addNumbersButton.addEventListener('click', () => { updateAdderResult(num1Input.value, num2Input.value); });
 
         // --- Reverser Example Logic ---
-        function updateReversedString(text) {
-            reverserResultContainer.textContent = reverse_string(text);
+        function updateReversedString(text) { reverserResultContainer.textContent = reverse_string(text); }
+        if (stringInput.value) { updateReversedString(stringInput.value); }
+        reverseButton.addEventListener('click', () => { updateReversedString(stringInput.value); });
+
+        // --- Stats Calculator Logic ---
+        function performStatisticsCalculation() {
+            const numbersStr = statsInput.value;
+            statsResultContainer.textContent = calculate_stats(numbersStr);
         }
-        if (stringInput.value) { // Initial reverse
-            updateReversedString(stringInput.value);
+        if (statsInput.value) { // Initial calculation
+            performStatisticsCalculation();
         }
-        reverseButton.addEventListener('click', () => {
-            const textToReverse = stringInput.value;
-            // No specific validation needed for empty string, reverse_string handles it.
-            updateReversedString(textToReverse);
-        });
+        calculateStatsButton.addEventListener('click', performStatisticsCalculation);
 
     } catch (error) {
         console.error("WASM Error:", error);
         const appContainer = document.getElementById('rust-app-container') || 
                              document.getElementById('adder-result-container') || 
-                             document.getElementById('reverser-result-container');
+                             document.getElementById('reverser-result-container') ||
+                             (document.getElementById('stats-result-container') && document.getElementById('stats-result-container').querySelector('pre'));
         if (appContainer) {
             appContainer.textContent = "Failed to load Rust app. Check console.";
         }
