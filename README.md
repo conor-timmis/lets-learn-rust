@@ -2,7 +2,9 @@
 
 This repository is a learning project for Rust, with the goal of creating a web-based manual for other Rust beginners.
 
-![screenshot](documentation/preview.png)
+<p align="center">
+  <img src="documentation/preview.png" alt="screenshot" width="600"/>
+</p>
 
 ## Live Demo
 
