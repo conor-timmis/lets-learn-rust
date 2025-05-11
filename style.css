@@ -138,6 +138,10 @@ footer {
     width: 200px;
 }
 
+#stats-input {
+    width: 250px;
+}
+
 .label-spacer,
 .button-spacer {
     margin-left: 10px;
