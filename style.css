@@ -133,3 +133,29 @@ footer {
 .input-group label {
     margin-right: 5px;
 }
+
+.label-spacer,
+.button-spacer {
+    margin-left: 10px;
+}
+
+pre {
+    background-color: #000000;
+    color: #00ff00;
+    border: 1px solid #808080;
+    padding: 8px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.9em;
+    overflow-x: auto;
+    white-space: pre-wrap;
+}
+
+code {
+    font-family: inherit;
+}
+
+.window-body h4 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
