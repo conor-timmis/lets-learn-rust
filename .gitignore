@@ -1,6 +1,14 @@
 # Rust build artifacts - should always be ignored
 rust_lib/target/
+**/target/
 
-# WebAssembly build artifacts - for this project, we are committing it for GitHub Pages simplicity.
+# WebAssembly build artifacts - for this project, I am committing pkg/ for GitHub Pages simplicity.
 # In many projects, this pkg/ directory would also be ignored.
-# rust_lib/pkg/
+
+# IDE-specific folders
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
