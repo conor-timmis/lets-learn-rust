@@ -1,20 +1,26 @@
 use wasm_bindgen::prelude::*;
 
-// This is the entry point for the WASM module.
-// wasm_bindgen is a macro that makes this Rust function
-// callable from JavaScript.
+// This is our first Rust function that we want to call from JavaScript.
+// The `#[wasm_bindgen]` attribute makes this possible.
 #[wasm_bindgen]
 pub fn greet(name: &str) -> String {
-    format!("Hello from Rust, {}!", name)
+    // `format!` is a Rust macro for creating strings.
+    // `&str` is a string slice (a reference to a string).
+    // `String` is an owned string type.
+    format!("Hello from Rust, {}! I am learning too!", name)
 }
 
-// You can keep your tests or add new ones for your WASM functions
+// It's good practice to include tests for your functions.
+// These tests will run when you use `cargo test`.
 #[cfg(test)]
 mod tests {
+    // `use super::*;` brings everything from the parent module (our lib) into scope for the tests.
     use super::*;
 
     #[test]
-    fn greet_works() {
-        assert_eq!(greet("WebAssembly"), "Hello from Rust, WebAssembly!");
+    fn greet_returns_expected_message() {
+        let name_to_greet = "WASM Explorer";
+        let expected_message = format!("Hello from Rust, {}! I am learning too!", name_to_greet);
+        assert_eq!(greet(name_to_greet), expected_message);
     }
 }
