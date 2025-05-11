@@ -1,33 +1,51 @@
 // main.js: Interacts with the Rust/WASM module.
 
-// Import the initializer and the `greet` function from our WASM package.
 import init, { greet } from './rust_lib/pkg/rust_lib.js';
 
 async function runWasm() {
     try {
-        // Initialize the WASM module (loads the .wasm file).
-        await init();
+        await init(); // Initialize the WASM module.
 
-        // Call the Rust `greet` function.
-        const nameToSend = "Web Page User";
-        const greeting = greet(nameToSend);
-
-        // Display the greeting in the HTML.
+        const nameInput = document.getElementById('name-input');
+        const greetButton = document.getElementById('greet-button');
         const rustAppContainer = document.getElementById('rust-app-container');
-        if (rustAppContainer) {
-            rustAppContainer.textContent = greeting;
-        } else {
-            console.error("Element 'rust-app-container' not found.");
+
+        if (!nameInput || !greetButton || !rustAppContainer) {
+            console.error("Required HTML elements not found (input, button, or container).");
+            if (rustAppContainer) {
+                rustAppContainer.textContent = "Error: Page elements missing. Check console.";
+            }
+            return;
         }
+
+        // Function to update the greeting
+        function updateGreeting(name) {
+            const greeting = greet(name);
+            rustAppContainer.textContent = greeting;
+        }
+
+        // Initial greeting on load with the default input value
+        if (nameInput.value) {
+            updateGreeting(nameInput.value);
+        }
+
+        // Event listener for the button
+        greetButton.addEventListener('click', () => {
+            const userName = nameInput.value;
+            if (userName) {
+                updateGreeting(userName);
+            } else {
+                rustAppContainer.textContent = "Please enter a name first!";
+            }
+        });
 
     } catch (error) {
         console.error("WASM Error:", error);
-        const rustAppContainer = document.getElementById('rust-app-container');
+        const rustAppContainer = document.getElementById('rust-app-container'); // Re-fetch in case of early error
         if (rustAppContainer) {
             rustAppContainer.textContent = "Failed to load Rust app. Check console.";
         }
     }
 }
 
-// Execute the main WASM interaction logic.
 runWasm();
