@@ -1,0 +1,127 @@
+body {
+    background-color: #008080;
+    font-family: 'Tahoma', 'MS Sans Serif', 'Arial', sans-serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.window {
+    background-color: #c0c0c0;
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    box-shadow: 1px 1px 0 #000000, 2px 2px 0 #000000;
+    width: 640px;
+    max-width: 90%;
+}
+
+.title-bar {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: #ffffff;
+    padding: 3px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20px;
+}
+
+.title-bar-text {
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.title-bar-controls button {
+    background-color: #c0c0c0;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    width: 16px;
+    height: 14px;
+    margin-left: 2px;
+    font-family: 'Marlett', 'Webdings', sans-serif;
+    font-size: 10px;
+    line-height: 10px;
+    text-align: center;
+    padding: 0;
+}
+
+.title-bar-controls button[aria-label="Minimize"]::before { content: "0"; }
+.title-bar-controls button[aria-label="Maximize"]::before { content: "1"; }
+.title-bar-controls button[aria-label="Close"]::before { content: "r"; } 
+
+.window-body {
+    padding: 10px;
+    background-color: #c0c0c0;
+}
+
+.window-body h1 {
+    font-size: 1.5em;
+    margin-top: 0;
+    border-bottom: 1px solid #808080;
+    padding-bottom: 5px;
+}
+
+fieldset {
+    border: 1px solid #808080;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    padding: 10px;
+    margin-top: 15px;
+    background: #c0c0c0;
+}
+
+legend {
+    background: #c0c0c0;
+    padding: 0 5px;
+    color: #000000;
+}
+
+button, input[type="text"], select, textarea {
+    background-color: #ffffff;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    padding: 3px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+button {
+    background-color: #c0c0c0;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    padding: 5px 10px;
+}
+
+button:active {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
+
+footer {
+    margin-top: 15px;
+    padding: 5px;
+    border-top: 1px solid #808080;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+#rust-app-container {
+    border: 1px inset #808080;
+    background-color: #ffffff;
+    padding: 10px;
+    min-height: 100px;
+    margin-top: 5px;
+}
