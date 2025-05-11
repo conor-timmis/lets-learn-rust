@@ -3,6 +3,7 @@
 export function greet(name: string): string;
 export function add_numbers_and_explain(num1: number, num2: number): string;
 export function reverse_string(text: string): string;
+export function calculate_stats(numbers_str: string): string;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
@@ -11,6 +12,7 @@ export interface InitOutput {
   readonly greet: (a: number, b: number) => [number, number];
   readonly add_numbers_and_explain: (a: number, b: number) => [number, number];
   readonly reverse_string: (a: number, b: number) => [number, number];
+  readonly calculate_stats: (a: number, b: number) => [number, number];
   readonly __wbindgen_export_0: WebAssembly.Table;
   readonly __wbindgen_malloc: (a: number, b: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
