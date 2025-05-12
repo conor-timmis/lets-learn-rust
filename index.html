@@ -20,80 +20,94 @@
         <div class="window-body">
             <h1>Welcome to the Interactive Rust Manual!</h1>
             <p>This is a work in progress. Stay tuned for Rust learning content!</p>
+
+            <div class="pagination">
+                <button id="prev-page" disabled>Previous</button>
+                <button id="next-page">Next</button>
+            </div>
             
-            <fieldset>
-                <legend>Rust Area</legend>
-                <p>Enter your name and let Rust greet you!</p>
-                <div class="input-group">
-                    <label for="name-input">Name: </label>
-                    <input type="text" id="name-input" value="Web Page User">
-                    <button id="greet-button">Greet Me!</button>
-                </div>
-                <div id="rust-app-container">
-                    <!-- App will load here -->
-                </div>
+            <div id="page1" class="page">
+                <fieldset>
+                    <legend>Rust Area</legend>
+                    <p>Enter your name and let Rust greet you!</p>
+                    <div class="input-group">
+                        <label for="name-input">Name: </label>
+                        <input type="text" id="name-input" value="Web Page User">
+                        <button id="greet-button">Greet Me!</button>
+                    </div>
+                    <div id="rust-app-container">
+                        <!-- App will load here -->
+                    </div>
 
-                <h4>Rust Code (greet):</h4>
-                <pre><code id="greet-code-display">
+                    <h4>Rust Code (greet):</h4>
+                    <pre><code id="greet-code-display">
 // Rust code for greet function will be shown here.
-                </code></pre>
-            </fieldset>
+                    </code></pre>
+                </fieldset>
 
-            <fieldset>
-                <legend>Number Adder</legend>
-                <p>Enter two numbers for Rust to add:</p>
-                <div class="input-group">
-                    <label for="num1-input">Number 1: </label>
-                    <input type="number" id="num1-input" value="5">
-                    <label for="num2-input" class="label-spacer">Number 2: </label>
-                    <input type="number" id="num2-input" value="7">
-                    <button id="add-numbers-button" class="button-spacer">Add Numbers</button>
-                </div>
-                <div id="adder-result-container">
-                    <!-- Result of addition will load here -->
-                </div>
+                <fieldset>
+                    <legend>Number Adder</legend>
+                    <p>Enter two numbers for Rust to add:</p>
+                    <div class="input-group">
+                        <label for="num1-input">Number 1: </label>
+                        <input type="number" id="num1-input" value="5">
+                        <label for="num2-input" class="label-spacer">Number 2: </label>
+                        <input type="number" id="num2-input" value="7">
+                        <button id="add-numbers-button" class="button-spacer">Add Numbers</button>
+                    </div>
+                    <div id="adder-result-container">
+                        <!-- Result of addition will load here -->
+                    </div>
 
-                <h4>Rust Code (add_numbers_and_explain):</h4>
-                <pre><code id="adder-code-display">
+                    <h4>Rust Code (add_numbers_and_explain):</h4>
+                    <pre><code id="adder-code-display">
 // Rust code for add_numbers_and_explain will be shown here.
-                </code></pre>
-            </fieldset>
+                    </code></pre>
+                </fieldset>
 
-            <fieldset>
-                <legend>String Reverser</legend>
-                <p>Enter some text for Rust to reverse:</p>
-                <div class="input-group">
-                    <label for="string-input">Text: </label>
-                    <input type="text" id="string-input" value="Hello Rust!">
-                    <button id="reverse-button" class="button-spacer">Reverse It!</button>
-                </div>
-                <div id="reverser-result-container">
-                    <!-- Result of string reversal will load here -->
-                </div>
+                <fieldset>
+                    <legend>String Reverser</legend>
+                    <p>Enter some text for Rust to reverse:</p>
+                    <div class="input-group">
+                        <label for="string-input">Text: </label>
+                        <input type="text" id="string-input" value="Hello Rust!">
+                        <button id="reverse-button" class="button-spacer">Reverse It!</button>
+                    </div>
+                    <div id="reverser-result-container">
+                        <!-- Result of string reversal will load here -->
+                    </div>
 
-                <h4>Rust Code (reverse_string):</h4>
-                <pre><code id="reverser-code-display">
+                    <h4>Rust Code (reverse_string):</h4>
+                    <pre><code id="reverser-code-display">
 // Rust code for reverse_string function will be shown here.
-                </code></pre>
-            </fieldset>
+                    </code></pre>
+                </fieldset>
+            </div>
 
-            <fieldset>
-                <legend>Simple Statistics Calculator</legend>
-                <p>Enter comma-separated numbers (e.g., 1, 2, 3, 4, 5):</p>
-                <div class="input-group">
-                    <label for="stats-input">Numbers: </label>
-                    <input type="text" id="stats-input" value="1, 5, 2, 8, 3">
-                    <button id="calculate-stats-button" class="button-spacer">Calculate Stats</button>
-                </div>
-                <div id="stats-result-container">
-                    <pre>Statistics results will appear here.</pre>
-                </div>
+            <div id="page2" class="page">
+                 <fieldset>
+                    <legend>Simple Statistics Calculator</legend>
+                    <p>Enter comma-separated numbers (e.g., 1, 2, 3, 4, 5):</p>
+                    <div class="input-group">
+                        <label for="stats-input">Numbers: </label>
+                        <input type="text" id="stats-input" value="1, 5, 2, 8, 3">
+                        <button id="calculate-stats-button" class="button-spacer">Calculate Stats</button>
+                    </div>
+                    <div id="stats-result-container">
+                        <pre>Statistics results will appear here.</pre>
+                    </div>
 
-                <h4>Rust Code (calculate_stats):</h4>
-                <pre><code id="stats-code-display">
+                    <h4>Rust Code (calculate_stats):</h4>
+                    <pre><code id="stats-code-display">
 // Rust code for calculate_stats function will be shown here.
-                </code></pre>
-            </fieldset>
+                    </code></pre>
+                </fieldset>
+            </div>
+
+             <div class="pagination">
+                <button id="prev-page" disabled>Previous</button>
+                <button id="next-page">Next</button>
+            </div>
 
             <footer>
                 <p>Status: Learning in progress...</p>
