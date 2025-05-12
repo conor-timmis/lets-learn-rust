@@ -167,3 +167,7 @@ code {
     margin-bottom: 5px;
     font-size: 1.1em;
 }
+
+.pagination {
+    margin-top: 1em;
+}
